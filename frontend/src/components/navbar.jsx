@@ -5,10 +5,11 @@ import Cookies from 'js-cookie';
 
 export default function Navbar() {
   const [user, setUser] = useState('')
-  const [login, setLogin] = useState(false)
-  const [data, showData] = useState(false)
+  // const [login, setLogin] = useState(false)
+  // const [data, showData] = useState(false)
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  const[profile,setProfile] = useState("");
   const navbarurl = (uri) => {
     window.open(`http://localhost:3001/${uri}`, '_self')
   }
@@ -27,6 +28,7 @@ export default function Navbar() {
     })
     .then((resObject) => {
       setUser(resObject.user);
+      setProfile(resObject.user.avatar)
     })
     .catch((err) => {
       console.log(err);
@@ -36,9 +38,9 @@ export default function Navbar() {
   const handleLogout = () => {
     navbarurl('auth/logout')
   };
-// useEffect(()=>{
-//   getUser()
-// },[handleLogout])
+useEffect(()=>{
+    getUser()
+},[])
   
 // const [username,setusername]= useState('')
 // const [img,setImg]= useState('')
@@ -52,12 +54,12 @@ export default function Navbar() {
 
   
 
-  useEffect(() => {
-    getUser()
-    if (localStorage.getItem("accessToken")){
-      setLogin(true)
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   getUser()
+  //   if (localStorage.getItem("accessToken")){
+  //     setLogin(true)
+  //   }
+  // }, [navigate]);
 
 
   return (<>
@@ -67,19 +69,32 @@ export default function Navbar() {
       
         <div className="leftpart">:
           <span><img src="R.png" width={'100px'} /></span>
-        </div> { user.GoogleId ? (
+        </div>
         <div className="lastpart">
-          <div className="userdetails" style={{display: 'flex',justifyContent:'space-between',alignItems:'center'}}>
-            <div className="image"><img src={user.avatar} alt={"profile_Image"} style={{borderRadius:'20px',height:'40px',width:'40px'}}/></div>
-            <div className="username" style={{fontSize:'12px'}}>{user.name}</div>
-          </div>
-          <div className="logout">
-            <button onClick={handleLogout}>LogOut</button>
-          </div>
-        </div>) : (
-            <Link to="/login">Login</Link>
- )
-}
+          {
+            !user ? (
+              <div className="userdetails" style={{display: 'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div className="image"><img src={profile} alt={"profile_Image"} style={{borderRadius:'20px',height:'40px',width:'40px'}}/></div>
+              <div className="username" style={{fontSize:'12px'}}>{user.name}</div>
+              <div className="logout">
+                <button onClick={handleLogout}>LogOut</button>
+              </div>
+            </div>
+           
+            ): (
+              <div className="userdetails" style={{display: 'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div className="image"><img src={profile} alt={"profile_Image"} style={{borderRadius:'20px',height:'40px',width:'40px'}}/></div>
+              <div className="username" style={{fontSize:'12px'}}>{user.name}</div>
+              <div className="logout">
+                <button onClick={handleLogout}>LogOut</button>
+              </div>
+            </div>
+            )
+          }
+         
+          
+        </div>
+
       </div>
 
   </>

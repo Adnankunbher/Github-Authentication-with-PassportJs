@@ -13,7 +13,7 @@ import axios from 'axios';
 import Cards from './cards';
 
 
-function TodoList() {
+function TodoList({user}) {
   // const [tasks, setTasks] = useState([]);
   // useEffect(() => {
   //   setTimeout(()=>{
@@ -56,7 +56,8 @@ function TodoList() {
 
   return (
     <>
-
+    
+    <Navbar user={user}/>
 
       {/* <div className="addtodo">
      <MDBBtn onClick={buttonToggle} className='mr-12'>Add ToDO</MDBBtn>

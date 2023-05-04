@@ -10,9 +10,8 @@ const userSchema= new Schema({
     name: String,
     avatar: {
         type:String,
-        unique: true
     }
-},{timestamps: true});
+});
 
 const User= mongoose.model('user', userSchema)
 

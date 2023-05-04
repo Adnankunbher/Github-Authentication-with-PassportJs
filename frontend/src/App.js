@@ -48,10 +48,9 @@ function App() {
   return (
     <BrowserRouter>
     <div className="App">
-      <Navbar user={user}/>
       <Routes>
         <Route path='/' index element={<Signin/>}/>
-        <Route path='/dashboard' element={<TodoList/>} />
+        <Route path='/dashboard' element={<TodoList user={user}/>} />
         <Route path='/login' element={<Signin/>} />
         <Route path='/signup' element={<Signup/>} />
         {/* <Route path='/post/:id' element={user ? <Post/> :<Navigate to={'/login'}/>}/> */}

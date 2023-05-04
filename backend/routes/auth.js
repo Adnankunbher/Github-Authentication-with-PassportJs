@@ -57,14 +57,20 @@ router.get('login/failure',(req,res)=>{
 
 // logout URL
 router.get("/logout", (req, res) => {
-  req.session.destroy(function(err) {
-if(err) {
-  console.log(err);
-  return next(err)
-}  
-  res.redirect(CLIENT_URL+'login');
+  req.logout((eror)=>{
+    if (eror){
+      console.log(eror)      
+    }
+    res.redirect(CLIENT_URL+'login');
+  });
+//   req.session.destroy(function(err) {
+// if(err) {
+//   console.log(err);
+//   return next(err)
+// }  
+//   res.redirect(CLIENT_URL+'login');
 
-});
+// });
 });
 
 
@@ -74,7 +80,7 @@ router.get('/google',
 
 router.get('/google/callback', 
   passport.authenticate('google',{
-    successRedirect: CLIENT_URL+'dashboard',
+    successRedirect: CLIENT_URL +'dashboard',
     failureRedirect: '/login/failure'
   }));
 
